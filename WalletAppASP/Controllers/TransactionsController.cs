@@ -5,6 +5,7 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using WalletAppASP.Data;
 using WalletAppASP.Models;
+using WalletAppASP.Controllers;
 
 namespace WalletAppASP.Controllers
 {
@@ -22,7 +23,7 @@ namespace WalletAppASP.Controllers
             _dbContext = dbContext;
         }
         // GET api/transactions/userId
-        [HttpGet("userId")]
+        [HttpGet("{userId}")]
         public ActionResult<IEnumerable<TransactionModel>> GetTransactions(int userId)
         {
             // Отримати транзакції для певного користувача (userId)

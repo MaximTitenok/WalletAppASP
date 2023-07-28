@@ -4,28 +4,29 @@
     {
         public static int CalculatePoints(DateTime currentDate)
         {
-
             TimeSpan duration = currentDate - GetSeasonStartDate();
             int daysSinceStart = duration.Days;
 
-            int points = 0;
+            int[] pointsArray = new int[daysSinceStart + 1];
+
             for (int day = 1; day <= daysSinceStart; day++)
             {
                 if (day == 1)
                 {
-                    points += 2;
+                    pointsArray[day] = 2;
                 }
                 else if (day == 2)
                 {
-                    points += 3;
+                    pointsArray[day] = 3;
                 }
                 else
                 {
-                    int previousDayPoints = (int)(points * 0.6);
-                    points += previousDayPoints + 100;
+                    int previousDayPoints = (int)((int)pointsArray[day - 1] * 0.6);
+                    int beforePreviousDayPoints = (int)pointsArray[day - 2];
+                    pointsArray[day] = previousDayPoints + beforePreviousDayPoints;
                 }
             }
-            return points;
+            return pointsArray.Sum();
         }
 
         private static DateTime GetSeasonStartDate()

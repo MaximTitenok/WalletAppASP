@@ -32,17 +32,18 @@ namespace WalletAppASP.Controllers
                 .Where(t => t.User.Id == userId)
                 .OrderBy(t => t.Date)
                 .Take(10)
+                .Include(t => t.User)
                 .ToList();
             return transactions;
         }
-        [HttpGet("userId/{transactionId}")]
-        public ActionResult<IEnumerable<TransactionModel>> GetTransactionByUser(int userId, int transactionId)
+        [HttpGet("{userId}/{transactionId}")]
+        public ActionResult<TransactionModel> GetTransactionByUser(int userId, int transactionId)
         {
             var transactions = _dbContext.Transactions
                 .Where(t => t.User.Id == userId && t.Id == transactionId)
                 .Include(t => t.User)
-                .ToList();
-            return transactions;
+                .SingleOrDefault();
+            return transactions ?? new TransactionModel();
         }
     }
 }

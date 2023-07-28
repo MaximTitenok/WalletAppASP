@@ -32,15 +32,6 @@ namespace WalletAppASP.Controllers
                 .Where(t => t.User.Id == userId)
                 .OrderBy(t => t.Date)
                 .Take(10)
-                .Select(t => new TransactionModel
-                {
-                    Id = t.Id,
-                    Sum = t.Sum,
-                    Name = t.Name,
-                    Description = t.Description,
-                    User = t.User,
-                    Types = t.Types,
-                })
                 .ToList();
             return transactions;
         }

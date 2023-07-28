@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using WalletAppASP.Data;
@@ -11,9 +12,11 @@ using WalletAppASP.Data;
 namespace WalletAppASP.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    partial class ApplicationDBContextModelSnapshot : ModelSnapshot
+    [Migration("20230728135908_UpdateTypeOfTupe")]
+    partial class UpdateTypeOfTupe
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -29,9 +32,6 @@ namespace WalletAppASP.Migrations
                         .HasColumnType("bigint");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
-
-                    b.Property<int>("AuthorizedUserId")
-                        .HasColumnType("integer");
 
                     b.Property<DateTime?>("Date")
                         .HasColumnType("timestamp with time zone");
@@ -57,8 +57,6 @@ namespace WalletAppASP.Migrations
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AuthorizedUserId");
 
                     b.HasIndex("UserId");
 
@@ -88,19 +86,11 @@ namespace WalletAppASP.Migrations
 
             modelBuilder.Entity("WalletAppASP.Models.TransactionModel", b =>
                 {
-                    b.HasOne("WalletAppASP.Models.UserModel", "AuthorizedUser")
-                        .WithMany()
-                        .HasForeignKey("AuthorizedUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("WalletAppASP.Models.UserModel", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("AuthorizedUser");
 
                     b.Navigation("User");
                 });

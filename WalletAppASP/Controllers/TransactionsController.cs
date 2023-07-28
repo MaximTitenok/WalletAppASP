@@ -30,9 +30,10 @@ namespace WalletAppASP.Controllers
         {
             var transactions = _dbContext.Transactions
                 .Where(t => t.User.Id == userId)
-                .OrderBy(t => t.Date)
+                .OrderByDescending(t => t.Date)
                 .Take(10)
                 .Include(t => t.User)
+                .Include(t => t.AuthorizedUser)
                 .ToList();
             return transactions;
         }

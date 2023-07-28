@@ -12,6 +12,7 @@ namespace WalletAppASP.Models
         public DateTime? Date { get; set; }
         public bool Pending { get; set; }
         public UserModel User { get; set; }
-        public short Types { get; set; }
+        public UserModel AuthorizedUser { get; set; }
+        public bool Type { get; set; }
     }
 }

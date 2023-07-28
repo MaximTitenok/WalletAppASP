@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using WalletAppASP.Controllers;
+using WalletAppASP.Models;
 
 namespace WalletAppASP.Controllers
 {

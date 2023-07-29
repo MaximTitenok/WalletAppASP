@@ -4,8 +4,8 @@
     {
         public static int CalculatePoints(DateTime currentDate)
         {
-            TimeSpan duration = currentDate - GetSeasonStartDate();
-            int daysSinceStart = duration.Days;
+            TimeSpan duration = currentDate - GetSeasonStartDate(currentDate);
+            int daysSinceStart = duration.Days+1;
 
             int[] pointsArray = new int[daysSinceStart + 1];
 
@@ -29,12 +29,11 @@
             return pointsArray.Sum();
         }
 
-        private static DateTime GetSeasonStartDate()
+        private static DateTime GetSeasonStartDate(DateTime currentDate)
         {
-            DateTime today = DateTime.Now;
-            int year = today.Year;
+            int year = currentDate.Year;
 
-            switch (today.Month)
+            switch (currentDate.Month)
             {
                 case 1:
                 case 2:
@@ -65,7 +64,7 @@
                     }
 
             }
-            return today;
+            return currentDate;
         }
 
     }

@@ -2,6 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using WalletAppASP.Controllers;
 using WalletAppASP.Models;
+using WalletAppASP.Services;
+using WalletAppASP.Services.Interfaces;
 
 namespace WalletAppASP.Controllers
 {
@@ -10,15 +12,17 @@ namespace WalletAppASP.Controllers
     public class DailyPointsController : Controller
     {
         private readonly ILogger<DailyPointsController> _logger;
+        private readonly ICalculationPoints _calculationPoints;
 
-        public DailyPointsController(ILogger<DailyPointsController> logger)
+        public DailyPointsController(ILogger<DailyPointsController> logger, ICalculationPoints calculationPoints)
         {
             _logger = logger;
+            _calculationPoints = calculationPoints;
         }
         [HttpGet]
         public ActionResult<int> GetDailyPoints()
         {
-            return CalculationPoints.CalculatePoints(DateTime.Now);
+            return _calculationPoints.CalculatePoints(DateTime.Now);
         }
     }
 }

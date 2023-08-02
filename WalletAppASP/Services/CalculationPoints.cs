@@ -1,11 +1,13 @@
-﻿namespace WalletAppASP
+﻿using WalletAppASP.Services.Interfaces;
+
+namespace WalletAppASP.Services
 {
-    public static class CalculationPoints
+    public class CalculationPoints : ICalculationPoints
     {
-        public static int CalculatePoints(DateTime currentDate)
+        public int CalculatePoints(DateTime currentDate)
         {
             TimeSpan duration = currentDate - GetSeasonStartDate(currentDate);
-            int daysSinceStart = duration.Days+1;
+            int daysSinceStart = duration.Days + 1;
 
             int[] pointsArray = new int[daysSinceStart + 1];
 
@@ -21,15 +23,15 @@
                 }
                 else
                 {
-                    int previousDayPoints = (int)((int)pointsArray[day - 1] * 0.6);
-                    int beforePreviousDayPoints = (int)pointsArray[day - 2];
+                    int previousDayPoints = (int)(pointsArray[day - 1] * 0.6);
+                    int beforePreviousDayPoints = pointsArray[day - 2];
                     pointsArray[day] = previousDayPoints + beforePreviousDayPoints;
                 }
             }
             return pointsArray.Sum();
         }
 
-        private static DateTime GetSeasonStartDate(DateTime currentDate)
+        public DateTime GetSeasonStartDate(DateTime currentDate)
         {
             int year = currentDate.Year;
 

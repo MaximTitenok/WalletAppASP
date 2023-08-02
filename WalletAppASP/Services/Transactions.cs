@@ -29,6 +29,7 @@ namespace WalletAppASP.Services
             var transactions = _dbContext.Transactions
                 .Where(t => t.User.Id == userId && t.Id == transactionId)
                 .Include(t => t.User)
+                .Include(t => t.AuthorizedUser)
                 .SingleOrDefault();
             return transactions ?? new TransactionModel();
         }
